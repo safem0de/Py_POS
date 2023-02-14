@@ -1,0 +1,1 @@
+pyinstaller .\_API\main.py --onefile --console
