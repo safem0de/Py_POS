@@ -1,3 +1,10 @@
-__pycache__
+bin
 build
 dist
+Include
+Lib
+Scripts
+pyvenv.cfg
+__pycache__
+share
+test
