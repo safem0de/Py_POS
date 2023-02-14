@@ -2,13 +2,14 @@ from flask import Flask
 from flask_restful import Api
 
 from WeatherCity import WeatherCity
+from HelloWorld import HelloWorld
 
 app = Flask(__name__)
 api = Api(app)
 
 # call path
-# api.add_resource(WeatherCity, "/weather")
-api.add_resource(WeatherCity, "/weather/<int:city_id>", methods = ['GET'])
+api.add_resource(HelloWorld, "/", "/hello")
+api.add_resource(WeatherCity, "/weather/<int:city_id>")
 
 
 if __name__ == '__main__':
