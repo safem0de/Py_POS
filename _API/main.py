@@ -7,7 +7,8 @@ app = Flask(__name__)
 api = Api(app)
 
 # call path
-api.add_resource(WeatherCity, "/weather")
+# api.add_resource(WeatherCity, "/weather")
+api.add_resource(WeatherCity, "/weather/<int:city_id>", methods = ['GET'])
 
 
 if __name__ == '__main__':
