@@ -37,7 +37,7 @@ class City(Base):
     id: Mapped[int] = mapped_column(primary_key=True)
     name: Mapped[str]
     temp: Mapped[float]
-    weather: Mapped[float]
+    weather: Mapped[str] = mapped_column(String(100))
     people: Mapped[int]
 
     def __repr__(self) -> str:
