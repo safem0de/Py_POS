@@ -1,7 +1,8 @@
 from flask import Flask
 from flask_restful import Api
 
-from sqlalchemy import create_engine
+# from sqlalchemy import create_engine
+# from sqlalchemy.orm import sessionmaker
 
 from Model import *
 
@@ -30,12 +31,19 @@ api = Api(app)
 #    db.create_all()
 
 
-engine = create_engine("sqlite:///_API/database.sqlite", echo=True)
-Base.metadata.create_all(engine)
+# engine = create_engine("sqlite:///_API/database.sqlite", echo=True)
+# Base.metadata.create_all(engine)
+
+# Session = sessionmaker(engine)
+
+# with Session() as session:
+#     session.add(some_object)
+#     session.add(some_other_object)
+#     session.commit()
 
 # call path
 api.add_resource(HelloWorld, "/", "/hello")
-api.add_resource(WeatherCity, "/weather/<string:name>")
+api.add_resource(WeatherCity, "/weather/<int:city_id>")
 
 if __name__ == '__main__':
    app.run(host="0.0.0.0", port=5000, debug=True)
