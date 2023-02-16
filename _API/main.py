@@ -33,6 +33,8 @@ api = Api(app)
 engine = create_engine("sqlite:///_API/database.sqlite", echo=True)
 Base.metadata.create_all(engine)
 
+
+
 # call path
 api.add_resource(HelloWorld, "/", "/hello")
 api.add_resource(WeatherCity, "/weather/<int:city_id>")

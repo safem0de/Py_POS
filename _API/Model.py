@@ -31,3 +31,14 @@ class Address(Base):
     
     def __repr__(self) -> str:
         return f"Address(id={self.id!r}, email_address={self.email_address!r})"
+    
+class City(Base):
+    __tablename__ = "city"
+    id: Mapped[int] = mapped_column(primary_key=True)
+    name: Mapped[str]
+    temp: Mapped[float]
+    weather: Mapped[float]
+    people: Mapped[int]
+
+    def __repr__(self) -> str:
+        return f"City(id={self.id!r}, name={self.name!r}, temp={self.temp!r}, weather={self.weather!r}, people={self.people!r})"
