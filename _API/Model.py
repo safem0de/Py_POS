@@ -9,6 +9,7 @@ from sqlalchemy.orm import relationship
 
 class Base(DeclarativeBase):
     pass
+    
 
 class User(Base):
     __tablename__ = "user_account"
@@ -39,6 +40,7 @@ class City(Base):
     temp: Mapped[float]
     weather: Mapped[str] = mapped_column(String(100))
     people: Mapped[int]
+
 
     def __repr__(self) -> str:
         return f"City(id={self.id!r}, name={self.name!r}, temp={self.temp!r}, weather={self.weather!r}, people={self.people!r})"

@@ -1,7 +1,8 @@
+import json
 from Model import *
 
 from flask_restful import Resource, abort, reqparse, marshal_with, fields
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, select
 from sqlalchemy.orm import sessionmaker
 
 mycity = {
@@ -27,20 +28,26 @@ resource_field = {
 engine = create_engine("sqlite:///_API/database.sqlite", echo=True)
 Base.metadata.create_all(engine)
 
-Session = sessionmaker(engine)
+# conn = engine.connect()
+
+Session = sessionmaker(engine, expire_on_commit=False)
 session = Session()
 
 def notFound(city_id):
     if city_id not in mycity:
         abort(404, message="Not Found Data")
 
-class WeatherCity(Resource):
-    # def get(self):
-    #     return mycity
 
+class WeatherCity(Resource):
+
+    @marshal_with(resource_field)
     def get(self, city_id):
-        notFound(city_id)
-        return mycity[city_id]
+        statement = select(City).filter_by(id = city_id)
+        rows = session.execute(statement).one_or_none()
+        print(type(rows))
+        print(rows)
+        
+        return rows
     
     @marshal_with(resource_field)
     def post(self, city_id):
@@ -55,6 +62,9 @@ class WeatherCity(Resource):
         try:
             session.add(city)
             session.commit()
+        except:
+            session.rollback()
+            raise
         finally:
             session.close()
 
