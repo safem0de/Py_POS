@@ -1,1 +1,1 @@
-pyinstaller .\_API\main.py --onefile --console
+D:\PythonProject\Py_POS\_fastAPI> pyinstaller run.py --onefile --console --clean --hidden-import _fastAPI.main
