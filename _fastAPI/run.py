@@ -1,29 +1,7 @@
-# import uvicorn
-
-# if __name__ == "__main__":
-#     uvicorn.run("_fastAPI.main:app", port=5000, log_level="info")
-
-# from _fastAPI.main import app
-# import asyncio
-# import uvloop
-# from hypercorn.asyncio import serve
-# from hypercorn.config import Config
-
-# if __name__ == "__main__":
-
-#     config = Config()
-#     config.bind = ["0.0.0.0:8000"]
-
-#     asyncio.set_event_loop_policy(uvloop.EventLoopPolicy())
-#     loop = asyncio.new_event_loop()
-#     asyncio.set_event_loop(loop)
-
-#     loop.run_until_complete(serve(app, config))
-
 import uvicorn
 from multiprocessing import cpu_count, freeze_support
 
-
+# # https://medium.com/codex/how-to-create-a-fastapi-uvicorn-server-windows-service-af41f075dabf
 def start_server(host="127.0.0.1",
                  port=5000,
                  num_workers=4,
