@@ -10,7 +10,8 @@ engine = create_engine(
     connect_args={"check_same_thread": False},
 )
 
-# https://stackoverflow.com/questions/30314882/using-pysqlcipher-with-sqlalchemy
+# from pysqlcipher import dbapi2 as sqlite
+# # # https://stackoverflow.com/questions/30314882/using-pysqlcipher-with-sqlalchemy
 # engine = create_engine(
 #     'sqlite+pysqlcipher://:{0}@/{1}?'
 #     'cipher=aes-256-cfb&kdf_iter=64000'.format('testtest', 'database.sqlite'))
