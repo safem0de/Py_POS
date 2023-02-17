@@ -35,3 +35,22 @@ class User(UserBase):
 
     class Config:
         orm_mode = True
+
+
+class ProductBase(BaseModel):
+    product_name: str
+    product_code: str
+    product_price: float
+    unit_id: int
+
+
+class ProductCreate(ProductBase):
+    product_cost: float
+
+
+class Product(ProductBase):
+    id: int
+    is_active: bool
+
+    class Config:
+        orm_mode = True
