@@ -5,6 +5,7 @@ from _fastAPI import crud, models, schemas
 from .database import SessionLocal, engine
 
 models.Base.metadata.create_all(bind=engine)
+# https://fastapi.tiangolo.com/tutorial/sql-databases/#__tabbed_2_3
 
 app = FastAPI()
 

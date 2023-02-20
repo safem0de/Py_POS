@@ -26,23 +26,23 @@ class Item(Base):
     owner = relationship("User", back_populates="items")
 
 
-class Unit(Base):
-    __tablename__ = "units"
+# class Unit(Base):
+#     __tablename__ = "units"
 
-    id = Column(Integer, primary_key=True, index=True)
-    unit_name = Column(String, unique=True)
+#     id = Column(Integer, primary_key=True, index=True)
+#     unit_name = Column(String, unique=True)
 
-    products = relationship("Product", back_populates="unit")
+#     products = relationship("Product", back_populates="unit")
 
-class Product(Base):
-    __tablename__ = "products"
+# class Product(Base):
+#     __tablename__ = "products"
 
-    id = Column(Integer, primary_key=True, index=True)
-    product_name = Column(String)
-    product_code = Column(String)
-    product_price = Column(float)
-    product_cost = Column(float)
-    unit_id = Column(Integer, ForeignKey("units.id"))
-    is_active = Column(Boolean, default=True)
+#     id = Column(Integer, primary_key=True, index=True)
+#     product_name = Column(String)
+#     product_code = Column(String)
+#     product_price = Column(float)
+#     product_cost = Column(float)
+#     unit_id = Column(Integer, ForeignKey("units.id"))
+#     is_active = Column(Boolean, default=True)
 
-    unit = relationship("", back_populates="")
+#     unit = relationship("", back_populates="")
