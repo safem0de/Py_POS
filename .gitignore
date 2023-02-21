@@ -8,3 +8,5 @@ pyvenv.cfg
 __pycache__
 share
 test
+*.Spec
+.DS_Store
