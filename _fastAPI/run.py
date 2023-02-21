@@ -7,7 +7,7 @@ def start_server(host="127.0.0.1",
                  num_workers=4,
                  loop="asyncio",
                  reload=False):
-    uvicorn.run("_fastAPI.main:app",
+    uvicorn.run("main:app",
                 host=host,
                 port=port,
                 workers=num_workers,
