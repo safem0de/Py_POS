@@ -32,7 +32,7 @@ class Unit(Base):
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String, unique=True)
 
-    # units = relationship("Unit", back_populates="product")
+    products = relationship("Product",back_populates="product")
 
 class Product(Base):
     __tablename__ = "products"
@@ -45,4 +45,4 @@ class Product(Base):
     product_unit_id = Column(Integer, ForeignKey("units.id"))
     is_active = Column(Boolean, default=True)
 
-    # product = relationship("Unit", back_populates="products")
+    product = relationship("Unit", back_populates="products")
