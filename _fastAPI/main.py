@@ -56,7 +56,27 @@ def read_items(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
     items = crud.get_items(db, skip=skip, limit=limit)
     return items
 
-@app.get("/product/", response_model=list[schemas.Product], tags=["products"])
+
+@app.get("/products/", response_model=list[schemas.Product], tags=["products"])
 def read_products(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
     products = crud.get_products(db, skip=skip, limit=limit)
     return products
+
+
+@app.post("/units/{unit_id}/products", response_model=schemas.Product, tags=["products"])
+def create_product(unit_id: int, product: schemas.ProductCreate, db: Session = Depends(get_db)):
+    return crud.create_product(db=db, product=product, unit_id=unit_id)
+
+
+@app.get("/units/", response_model=list[schemas.Unit], tags=["units"])
+def read_units(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
+    units = crud.get_units(db, skip=skip, limit=limit)
+    return units
+
+
+@app.post("/units/", response_model=schemas.Unit, tags=["units"])
+def create_unit(unit: schemas.UnitCreate, db: Session = Depends(get_db)):
+    db_unit = crud.get_unit_by_name(db, name=unit.name)
+    if db_unit:
+        raise HTTPException(status_code=400, detail="unit already registered")
+    return crud.create_unit(db=db, unit=unit)

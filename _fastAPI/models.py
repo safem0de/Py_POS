@@ -30,9 +30,9 @@ class Unit(Base):
     __tablename__ = "units"
 
     id = Column(Integer, primary_key=True, index=True)
-    unit_name = Column(String, unique=True)
+    name = Column(String, unique=True)
 
-    units = relationship("Unit", back_populates="product")
+    # units = relationship("Unit", back_populates="product")
 
 class Product(Base):
     __tablename__ = "products"
@@ -42,7 +42,7 @@ class Product(Base):
     product_code = Column(String)
     product_price = Column(Float, nullable=False)
     product_cost = Column(Float, nullable=False)
-    unit_id = Column(Integer, ForeignKey("units.id"))
+    product_unit_id = Column(Integer, ForeignKey("units.id"))
     is_active = Column(Boolean, default=True)
 
-    product = relationship("Unit", back_populates="products")
+    # product = relationship("Unit", back_populates="products")

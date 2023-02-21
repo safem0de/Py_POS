@@ -35,5 +35,33 @@ def create_user_item(db: Session, item: schemas.ItemCreate, user_id: int):
     db.refresh(db_item)
     return db_item
 
+
 def get_products(db: Session, skip: int = 0, limit: int = 100):
     return db.query(models.Product).offset(skip).limit(limit).all()
+
+
+def create_product(db: Session, product: schemas.ProductCreate, unit_id:int):
+    db_product = models.Product(
+        **product.dict(),
+        product_unit_id = unit_id
+        )
+    db.add(db_product)
+    db.commit()
+    db.refresh(db_product)
+    return db_product
+
+
+def get_units(db: Session, skip: int = 0, limit: int = 100):
+    return db.query(models.Unit).offset(skip).limit(limit).all()
+
+
+def get_unit_by_name(db: Session, name: str):
+    return db.query(models.Unit).filter(models.Unit.name == name).first()
+
+
+def create_unit(db: Session, unit: schemas.UnitCreate):
+    db_unit = models.Unit(name = unit.name)
+    db.add(db_unit)
+    db.commit()
+    db.refresh(db_unit)
+    return db_unit

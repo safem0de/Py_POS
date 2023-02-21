@@ -41,7 +41,6 @@ class ProductBase(BaseModel):
     product_name: str
     product_code: str
     product_price: float
-    unit_id: int
 
 
 class ProductCreate(ProductBase):
@@ -50,6 +49,7 @@ class ProductCreate(ProductBase):
 
 class Product(ProductBase):
     id: int
+    product_unit_id: int
     is_active: bool
 
     class Config:
@@ -57,7 +57,7 @@ class Product(ProductBase):
 
 
 class UnitBase(BaseModel):
-    unit_name: str
+    name: str
 
 
 class UnitCreate(UnitBase):
@@ -66,6 +66,7 @@ class UnitCreate(UnitBase):
 
 class Unit(UnitBase):
     id: int
+    products: list[Product] = []
 
     class Config:
         orm_mode = True
