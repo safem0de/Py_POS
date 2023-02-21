@@ -2,7 +2,7 @@ bin
 build
 dist
 Include
-Lib
+lib
 Scripts
 pyvenv.cfg
 __pycache__
