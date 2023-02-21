@@ -8,5 +8,3 @@ pyvenv.cfg
 __pycache__
 share
 test
-Lib
-Scripts
