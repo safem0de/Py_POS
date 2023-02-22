@@ -1,4 +1,4 @@
-from typing import Union
+from typing import List, Optional, Union
 
 from pydantic import BaseModel
 
@@ -55,6 +55,8 @@ class Product(ProductBase):
     class Config:
         orm_mode = True
 
+class ProductRead(ProductBase):
+    id : int
 
 class UnitBase(BaseModel):
     name: str
@@ -70,3 +72,15 @@ class Unit(UnitBase):
 
     class Config:
         orm_mode = True
+
+
+class UnitRead(UnitBase):
+    id: int
+    
+
+class ProductReadWithUnit(ProductRead):
+    unit: Optional[UnitRead] = None
+
+
+class UnitReadWithProducts(UnitRead):
+    products: List[ProductRead] = []
