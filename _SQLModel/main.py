@@ -4,6 +4,8 @@ from fastapi import Depends, FastAPI, HTTPException, Query
 from sqlmodel import Field, Relationship, Session, SQLModel, create_engine, select
 import schemas as s
 
+from database import engine
+
 # class TeamBase(SQLModel):
 #     name: str = Field(index=True)
 #     headquarters: str
@@ -66,11 +68,11 @@ import schemas as s
 #     heroes: List[HeroRead] = []
 
 
-sqlite_file_name = "_SQLModel/database.sqlite"
-sqlite_url = f"sqlite:///{sqlite_file_name}"
+# sqlite_file_name = "_SQLModel/database.sqlite"
+# sqlite_url = f"sqlite:///{sqlite_file_name}"
 
-connect_args = {"check_same_thread": False}
-engine = create_engine(sqlite_url, echo=True, connect_args=connect_args)
+# connect_args = {"check_same_thread": False}
+# engine = create_engine(sqlite_url, echo=True, connect_args=connect_args)
 
 
 def create_db_and_tables():
@@ -90,7 +92,7 @@ def on_startup():
     create_db_and_tables()
 
 
-@app.post("/heroes/", response_model=s.HeroRead)
+@app.post("/heroes/", response_model=s.HeroRead, tags=["Heroes"])
 def create_hero(*, session: Session = Depends(get_session), hero: s.HeroCreate):
     db_hero = s.Hero.from_orm(hero)
     session.add(db_hero)
@@ -99,7 +101,7 @@ def create_hero(*, session: Session = Depends(get_session), hero: s.HeroCreate):
     return db_hero
 
 
-@app.get("/heroes/", response_model=List[s.HeroRead])
+@app.get("/heroes/", response_model=List[s.HeroRead], tags=["Heroes"])
 def read_heroes(
     *,
     session: Session = Depends(get_session),
@@ -110,7 +112,7 @@ def read_heroes(
     return heroes
 
 
-@app.get("/heroes/{hero_id}", response_model=s.HeroReadWithTeam)
+@app.get("/heroes/{hero_id}", response_model=s.HeroReadWithTeam, tags=["Heroes"])
 def read_hero(*, session: Session = Depends(get_session), hero_id: int):
     hero = session.get(s.Hero, hero_id)
     if not hero:
@@ -118,7 +120,7 @@ def read_hero(*, session: Session = Depends(get_session), hero_id: int):
     return hero
 
 
-@app.patch("/heroes/{hero_id}", response_model=s.HeroRead)
+@app.patch("/heroes/{hero_id}", response_model=s.HeroRead, tags=["Heroes"])
 def update_hero(
     *, session: Session = Depends(get_session), hero_id: int, hero: s.HeroUpdate
 ):
@@ -134,7 +136,7 @@ def update_hero(
     return db_hero
 
 
-@app.delete("/heroes/{hero_id}")
+@app.delete("/heroes/{hero_id}", tags=["Heroes"])
 def delete_hero(*, session: Session = Depends(get_session), hero_id: int):
 
     hero = session.get(s.Hero, hero_id)
@@ -145,7 +147,7 @@ def delete_hero(*, session: Session = Depends(get_session), hero_id: int):
     return {"ok": True}
 
 
-@app.post("/teams/", response_model=s.TeamRead)
+@app.post("/teams/", response_model=s.TeamRead, tags=["Teams"])
 def create_team(*, session: Session = Depends(get_session), team: s.TeamCreate):
     db_team = s.Team.from_orm(team)
     session.add(db_team)
@@ -154,7 +156,7 @@ def create_team(*, session: Session = Depends(get_session), team: s.TeamCreate):
     return db_team
 
 
-@app.get("/teams/", response_model=List[s.TeamRead])
+@app.get("/teams/", response_model=List[s.TeamRead], tags=["Teams"])
 def read_teams(
     *,
     session: Session = Depends(get_session),
@@ -165,7 +167,7 @@ def read_teams(
     return teams
 
 
-@app.get("/teams/{team_id}", response_model=s.TeamReadWithHeroes)
+@app.get("/teams/{team_id}", response_model=s.TeamReadWithHeroes, tags=["Teams"])
 def read_team(*, team_id: int, session: Session = Depends(get_session)):
     team = session.get(s.Team, team_id)
     if not team:
@@ -173,7 +175,7 @@ def read_team(*, team_id: int, session: Session = Depends(get_session)):
     return team
 
 
-@app.patch("/teams/{team_id}", response_model=s.TeamRead)
+@app.patch("/teams/{team_id}", response_model=s.TeamRead, tags=["Teams"])
 def update_team(
     *,
     session: Session = Depends(get_session),
@@ -192,7 +194,7 @@ def update_team(
     return db_team
 
 
-@app.delete("/teams/{team_id}")
+@app.delete("/teams/{team_id}", tags=["Teams"])
 def delete_team(*, session: Session = Depends(get_session), team_id: int):
     team = session.get(s.Team, team_id)
     if not team:
