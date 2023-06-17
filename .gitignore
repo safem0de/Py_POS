@@ -2,11 +2,8 @@ bin
 build
 dist
 Include
-lib
-lib\site-packages
-Lib
-Lib\site-packages
 Scripts
+Lib
 pyvenv.cfg
 __pycache__
 share
