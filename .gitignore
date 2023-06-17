@@ -4,10 +4,14 @@ dist
 Include
 Scripts
 Lib
-pyvenv.cfg
+
+
 __pycache__
 share
 test
 *.Spec
 .DS_Store
 site-packages
+
+pyvenv.cfg
+*.cfg
